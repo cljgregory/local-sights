@@ -1,0 +1,100 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Sign Out" %}{% endblock %}
+
+{% block inner %}
+
+<style>
+  /* Add your custom styles here to match the theme */
+
+  body {
+    background: linear-gradient(to bottom,  #002466, #ffffff);
+    color: #fff;
+    margin: 0;
+    font-family: 'Consolas', serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  .container {
+    padding: 2vw;
+    padding-bottom: 20vw;
+    background: transparent;
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 4vw;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .button {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: skew(-21deg);
+    margin-top: 20px; /* Add margin for spacing */
+  }
+
+  .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    background: rgb(20, 20, 20);
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.5s;
+  }
+
+  .button:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
+  }
+
+  .logout-form {
+    margin-top: 20px;
+  }
+
+  .logout-form .dangerAction {
+    background-color: #f77a7a;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 3px;
+  }
+
+  .logout-form .dangerAction:hover {
+    background-color: #ff4d4d;
+  }
+</style>
+
+<div class="container">
+  <h1>{% trans "Sign Out" %}</h1>
+
+  <p>{% trans 'Are you sure you want to sign out?' %}</p>
+
+  <form class="logout-form" method="post" action="{% url 'account_logout' %}">
+    {% csrf_token %}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+    {% endif %}
+    <button class="button dangerAction btn btn-danger" type="submit">{% trans 'Sign Out' %}</button>
+  </form>
+</div>
+
+{% endblock %}
+

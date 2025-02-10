@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}localsights{% endblock title %}
+
+{% block css %}
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <!-- This file stores project-specific CSS -->
+
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <!-- Your specific CSS file for the maps page -->
+    <link href="{% static 'css/maps.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="pageholder">
+    <div class="titleholder"> 
+        <div class="title"> Geocoding template for {{ location.name }} </div> 
+    </div>
+
+    <div class="linkholder">
+        <table id="ourtable3" class="myTable m-3">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Zipcode</th>
+                    <th>City</th>
+                    <th>Country</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Place ID</th>
+                    
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>{{ location.id }}</td>
+                    <td>{{ location.name }}</td>
+                    <td>{{ location.address }}</td>
+                    <td>{{ location.zipcode }}</td>
+                    <td>{{ location.city }}</td>
+                    <td>{{ location.country }}</td>
+
+                    <td>{{ lat }}</td>
+                    <td>{{ lng }}</td>
+                    <td>{{ place_id }}</td>
+                    
+                    
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="linkholder">
+        {{lat}}
+    </div>
+</div>
+
+{% endblock content %}

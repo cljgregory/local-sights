@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  {{ user.username }}
+{% endblock title %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #002466, #ffffff);
+        color: white;
+        padding: 0;
+        margin: 0;
+        font-family: 'Consolas', serif;
+    }
+
+    h1 {
+        font-size: 3vw;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    form {
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .container {
+        padding: 2vw;
+        text-align: left;
+    }
+
+    .btn-primary {
+        background-color: #6e82f5;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    .btn-primary:hover {
+        background-color: #4854a5;
+    }
+</style>
+
+<div class="container">
+    <h1>{{ user.username }}</h1>
+    <form class="form-horizontal" method="post" action="{% url 'users:update' %}">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

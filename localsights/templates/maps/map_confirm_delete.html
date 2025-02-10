@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #002466, #ffffff);
+        color: white;
+        padding: 0;
+        margin: 0;
+        font-family: 'Consolas', serif;
+    }
+
+    .container {
+        padding-bottom: 20vw;
+        padding: 3vw;
+        text-align: left;
+    }
+
+    h1 {
+        font-size: 3vw;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 1.5vw;
+        margin-bottom: 40px;
+    }
+
+
+    input[type="submit"] {
+        background-color: #f77a7a;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #f55454;
+    }
+
+</style>
+
+<div class="container">
+    <h1>Delete Map: {{ map.name }}</h1>
+    <p>Are you sure you want to delete the Map?</p>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" action="" value="Yes, delete.">
+    </form>
+</div>
+{% endblock %}

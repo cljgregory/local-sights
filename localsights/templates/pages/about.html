@@ -1,0 +1,114 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "About" %}{% endblock %}
+
+{% block inner %}
+
+<style>
+  /* Add your custom styles here to match the theme */
+
+  body {
+    background: linear-gradient(to bottom,  #002466, #929191);
+    color: #fff;
+    margin: 0;
+    font-family: 'Consolas', serif;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  .container {
+    padding: 1vw;
+    text-align: left;
+  }
+
+  h1 {
+    font-size: 4vw;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .about-section {
+    margin-top: 20px;
+  }
+
+  .about-section h2 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .about-section p {
+    font-size: 1em;
+    line-height: 1.4;
+    margin-bottom: 15px;
+  }
+
+  .button {
+    background: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    transform: skew(-21deg);
+    margin-top: 20px; /* Add margin for spacing */
+  }
+
+  .button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 100%;
+    left: 0;
+    opacity: 0;
+    z-index: -1;
+    transition: all 0.5s;
+  }
+
+  .button:hover::before {
+    left: 0;
+    right: 0;
+    opacity: 1;
+  }
+</style>
+
+<div class="container">
+  <h1>{% trans "About Our Project" %}</h1>
+
+  <div class="about-section">
+    <h2>{% trans "Project Overview" %}</h2>
+    <p>{% trans "Localsights is a website designed to revolutionize travel planning by harnessing the power of the Traveling Salesman Problem (TSP) algorithm. Users can input their desired locations, and our platform calculates the most efficient routes, creating optimized maps for their journeys. From scenic road trips to efficient city tours, Localsights ensures that every adventure is mapped out for maximum enjoyment and convenience!" %}</p>
+  </div>
+
+  <div class="about-section">
+    <h2>{% trans "Team Members" %}</h2>
+    <p>Brock Redman</p>
+    <p>Nischal Lawot</p>
+    <p>Colin Gregory</p>
+  </div>
+
+  <div class="about-section">
+    <h2>{% trans "Technologies Used" %}</h2>
+    <p>
+      <strong>Framework:</strong> Django<br>
+      <strong>Languages:</strong> Python, HTML, CSS, JavaScript<br>
+      <strong>Database:</strong> PostgreSQL<br>
+      <strong>Mapping Services:</strong> Google Maps API<br>
+      <strong>Deployment:</strong> Digital Ocean<br>
+      <strong>Version Control:</strong> Git, GitHub
+    </p>
+  </div>
+
+  <a href="{% url 'home' %}" class="button">{% trans "Back to Home" %}</a>
+</div>
+
+{% endblock %}

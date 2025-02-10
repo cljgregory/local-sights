@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  User: {{ object.username }}
+{% endblock title %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #002466, #ffffff);
+        color: white;
+        padding: 0;
+        margin: 0;
+        font-family: 'Consolas', serif;
+    }
+
+    .container {
+        padding: 4.5vw;
+        text-align: left;
+    }
+
+    h2 {
+        font-size: 3vw;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    p {
+        font-size: 2vw;
+        margin-bottom: 10px;
+    }
+
+    .button {
+        background: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transform: skew(-21deg);
+        margin-top: 20px; /* Add margin for spacing */
+        position: relative;
+        z-index: 1;
+    }
+
+    .button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        left: 0;
+        background: #002466;
+        opacity: 0;
+        z-index: -1;
+        transition: all 0.5s;
+    }
+
+    .button:hover {
+        color: #fff;
+    }
+
+    .button:hover::before {
+        left: 0;
+        right: 0;
+        opacity: 1;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2>{{ object.username }}</h2>
+            {% if object.name %}
+                <p>{{ object.name }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if object == request.user %}
+    <!-- Action buttons -->
+    <div class="row">
+        <div class="col-sm-12">
+            <a class="button" href="{% url 'users:update' %}">My Info</a>
+            <a class="button" href="{% url 'account_email' %}">E-Mail</a>
+            <!-- Your Stuff: Custom user template urls -->
+        </div>
+    </div>
+    <!-- End Action buttons -->
+    {% endif %}
+</div>
+{% endblock content %}
+

@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    body {
+        background: linear-gradient(to bottom, #002466, #ffffff);
+        color: white;
+        padding: 0;
+        margin: 0;
+        font-family: 'Consolas', serif;
+    }
+
+    .container {
+        padding-bottom: 20vw;
+        padding: 2vw;
+        text-align: left;
+    }
+
+
+    h1 {
+        font-size: 3vw;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    form {
+
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .button {
+        background: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 15px;
+        font-weight: 600;
+        text-transform: uppercase;
+        cursor: pointer;
+        transform: skew(-21deg);
+        margin-top: 20px;
+        /* Add margin for spacing */
+        position: relative;
+        z-index: 1;
+    }
+
+    .button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 100%;
+        left: 0;
+        background: #002466;
+        opacity: 0;
+        z-index: -1;
+        transition: all 0.5s;
+    }
+
+    .button:hover {
+        color: #fff;
+    }
+
+    .button:hover::before {
+        left: 0;
+        right: 0;
+        opacity: 1;
+    }
+</style>
+
+<div class="container">
+    <div class="sidebar">
+        <!-- Sidebar content here -->
+    </div>
+    <h1>Create your map!</h1>
+    <form method="post" class = "map-form">
+        <p>
+            <label for="id_name">Name:</label> <input type="text" name="name" maxlength="200" required="" id="id_name">
+        </p>
+        <p>
+            <label for="id_starting_location">Starting location:</label> 
+            <select name="starting_location"
+                id="id_starting_location">
+                {% if loc_list %}
+                    {% for loc in loc_list %} 
+                        <option value = "{{loc.id}}">{{ loc.name }}</option> 
+                    {% endfor %}
+                {% else %}
+                    <option disabled>None</option>
+                {% endif %}
+            </select>
+        </p>
+        <p>
+            <label for="id_dest_location">Dest location:</label> 
+            <select name="dest_location" id="id_dest_location">
+                {% if loc_list %}
+                    {% for loc in loc_list %} 
+                        <option value = "{{loc.id}}">{{ loc.name }}</option> 
+                    {% endfor %} 
+                {% else %}
+                    <option disabled>None</option>
+                {% endif %}
+            </select>
+            
+        </p>
+        <p>
+            <label for="id_locations">Locations:</label>
+            <select name="locations" required="" id="id_locations" multiple="">
+                {% if loc_list %}
+                    {% for loc in loc_list %} 
+                        <option value = "{{loc.id}}">{{ loc.name }}</option> 
+                    {% endfor %} 
+                {% else %}
+                <option disabled>None</option>
+                {% endif %}
+          </select>
+        </p>
+        <button type="submit" class="button" id="mapDetails">Submit</button>
+    </form>
+    <script>
+        let form =  document.querySelector(".map-form");
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+            let formData = new FormData( form );
+            let object = {};
+            object.locations = [];
+            formData.forEach((value, key) => {
+                if (key == "locations") {
+                    object.locations.push(value);
+                } else {
+                    object[key] = value
+                }
+            });
+            
+            let json = JSON.stringify(object);
+            //console.log(json);
+            fetch("/api/map",
+            {
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: json
+            })
+            .then(async function(res){ 
+                let j = await res.json();
+                let id = j.id;
+                window.top.location.href = "/maps/" + id;
+            })
+            .catch(function(res){ console.log(res) });
+        });
+    </script>
+    
+</div>
+{% endblock %}
